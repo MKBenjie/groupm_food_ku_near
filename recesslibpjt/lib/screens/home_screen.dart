@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:recesslibpjt/provider/sign_in_provider.dart';
 import 'package:recesslibpjt/screens/login_screen.dart';
 import 'package:recesslibpjt/screens/my_drawer_header.dart';
+import 'package:recesslibpjt/screens/wallet_screen.dart';
 import 'package:recesslibpjt/utils/next_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var currentPage = DrawerSections.dashboard;
   @override
   Widget build(BuildContext context) {
-    final sp = context.read<SignInProvider>();
+    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 212, 99, 105),
       appBar: AppBar(
@@ -54,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           menuItem(1, "Dashboard", Icons.dashboard,
               currentPage == DrawerSections.dashboard ? true : false),
-          menuItem(2, "SignOut", Icons.logout,
+          menuItem(2, "Wallet", Icons.wallet,
+              currentPage == DrawerSections.wallet ? true : false),
+          menuItem(3, "SignOut", Icons.logout,
               currentPage == DrawerSections.SignOut ? true : false),
         ],
       ),
@@ -62,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget menuItem(int id, String title, IconData icon, bool selected) {
+    final sp = context.read<SignInProvider>();
     return Material(
       color: selected ? Colors.orangeAccent[300] : Colors.transparent,
       child: InkWell(
@@ -71,7 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
             if (id == 1) {
               currentPage = DrawerSections.dashboard;
             } else if (id == 2) {
-               nextScreenReplace(context, LogInScreen());
+              nextScreen(context, WalletScreen());
+            } else if (id == 3) {
+              // currentPage = DrawerSections.wallet;
+              sp.userSignOut();
+              nextScreenReplace(context, LogInScreen());
             }
           });
         },
@@ -104,4 +112,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-enum DrawerSections { dashboard, SignOut }
+enum DrawerSections { dashboard, SignOut, wallet }

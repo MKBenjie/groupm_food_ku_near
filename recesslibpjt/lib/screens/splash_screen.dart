@@ -25,8 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
     //create timer
     Timer(const Duration(seconds: 2), () {
       sp.isSignedIn == false
-          ? nextScreen(context, const LogInScreen())
-          : nextScreen(context, const HomeScreen());
+          ? nextScreenReplace(context, const LogInScreen())
+          : nextScreenReplace(context, const HomeScreen());
     });
   }
 

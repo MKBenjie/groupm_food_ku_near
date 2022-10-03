@@ -121,7 +121,7 @@ class SignInProvider extends ChangeNotifier {
       "provider": _provider,
     });
     notifyListeners();
-  }
+  } 
 
   Future saveDataToSharedPreferences() async {
     final SharedPreferences s = await SharedPreferences.getInstance();
