@@ -200,7 +200,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           handleGoogleSignIn();
                         },
                         successColor: Colors.red,
-                        width: MediaQuery.of(context).size.width * 0.80,
+                        width: MediaQuery.of(context).size.width,
                         elevation: 0,
                         borderRadius: 25,
                         color: Colors.red,
@@ -273,7 +273,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   handleAfterSignIn() {
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      nextScreen(context, const HomeScreen());
+      nextScreenReplace(context, const HomeScreen());
     });
   }
 
@@ -283,7 +283,7 @@ class _LogInScreenState extends State<LogInScreen> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
-                nextScreenReplace(context, HomeScreen())
+                nextScreenReplace(context, const HomeScreen())
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

@@ -9,39 +9,51 @@ class Sold_detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-      backgroundColor: Colors.orange.shade800,
+    return Scaffold(
+      backgroundColor: Colors.orange[300],
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        elevation: 0,
+        backgroundColor: Colors.orange[800],
         title: Text(
           food.foodName,
           style: TextStyle(fontSize: 30.0, color: Colors.white),
         ),
+        centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
-        margin: EdgeInsets.symmetric(horizontal: 100.0),
-        child: Center(
+        padding: EdgeInsets.all(10.0),
+        // margin: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image(
+                fit: BoxFit.fill,
                 image: AssetImage(food.image),
+                height: 200.0,
+                
+              ),
+              SizedBox(height: 15.0),
+              Text(
+                'RESTAURANT: ',
+                style: TextStyle(fontSize: 20.0, color: Colors.white70),
               ),
               Text(
-                'RESTAURANT: ' + food.restaurant,
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                food.restaurant,
+                style: TextStyle(fontSize: 26.0, color: Colors.white),
+              ),
+              SizedBox(height: 15.0),
+              Text(
+                'PRICE:',
+                style: TextStyle(fontSize: 20.0, color: Colors.white70),
               ),
               Text(
-                'PRICE:               ' + 'UGX ' + food.price.toString(),
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              )
+                'UGX ' + food.price.toString(),
+                style: TextStyle(fontSize: 26.0, color: Colors.white),
+              ),
             ],
           ),
-        ),
       ),
-    ));
+    );
   }
 }

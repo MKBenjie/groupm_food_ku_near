@@ -21,7 +21,7 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
         children: [
           Container(
             margin: EdgeInsets.only(bottom: 10),
-            height: 70,
+            height: 80,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(image: AssetImage(Config.app_icon),

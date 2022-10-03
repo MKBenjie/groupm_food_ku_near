@@ -18,18 +18,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var currentPage = DrawerSections.dashboard;
+  var currentPage = DrawerSections.home;
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
-      backgroundColor: Colors.orange.shade800,
+      backgroundColor: Colors.orange[300],
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.orange[800],
         title: Text('Food Ku Near', style: TextStyle(color: Colors.white)),
         elevation: 0,
       ),
-      body: Hello(),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Hello(),
+      ),
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Container(
@@ -50,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.only(top: 15),
       child: Column(
         children: [
-          menuItem(1, "Dashboard", Icons.dashboard,
-              currentPage == DrawerSections.dashboard ? true : false),
+          menuItem(1, "Home", Icons.home,
+              currentPage == DrawerSections.home ? true : false),
           menuItem(2, "Wallet", Icons.wallet,
               currentPage == DrawerSections.wallet ? true : false),
           menuItem(3, "SignOut", Icons.logout,
@@ -70,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.pop(context);
           setState(() {
             if (id == 1) {
-              currentPage = DrawerSections.dashboard;
+              // currentPage = DrawerSections.home;
+              nextScreenReplace(context, HomeScreen());
             } else if (id == 2) {
               nextScreen(context, WalletScreen());
             } else if (id == 3) {
@@ -109,4 +113,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-enum DrawerSections { dashboard, SignOut, wallet }
+enum DrawerSections { home, SignOut, wallet }
