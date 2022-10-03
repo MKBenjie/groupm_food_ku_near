@@ -7,6 +7,8 @@ import 'package:recesslibpjt/screens/login_screen.dart';
 import 'package:recesslibpjt/screens/my_drawer_header.dart';
 import 'package:recesslibpjt/screens/wallet_screen.dart';
 import 'package:recesslibpjt/utils/next_screen.dart';
+import 'food.dart';
+import 'foodmenu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,18 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 212, 99, 105),
+      backgroundColor: Colors.orange.shade800,
       appBar: AppBar(
-        // title: Text("Toffa Njala",),
-        // centerTitle: true,
+        backgroundColor: Colors.orange,
+        title: Text('Food Ku Near', style: TextStyle(color: Colors.white)),
         elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
-      body: Container(
-        child: Center(
-          child: Text('Home page'),
-        ),
-      ),
+      body: Hello(),
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Container(
