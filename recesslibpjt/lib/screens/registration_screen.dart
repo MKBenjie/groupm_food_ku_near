@@ -18,11 +18,11 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final firstNameEditingController = new TextEditingController();
-  final lastNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final lastNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -157,7 +157,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           signUp(emailEditingController.text, passwordEditingController.text);
         },
         minWidth: MediaQuery.of(context).size.width,
-        child: Text(
+        child: const Text(
           'SignUp',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -174,7 +174,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.red,
             ),
@@ -206,7 +206,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Column(
@@ -221,23 +221,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             child: Column(
                               children: [
                                 firstNameField,
-                                SizedBox(
+                                const SizedBox(
                                   height: 14,
                                 ),
                                 lastNameField,
-                                SizedBox(
+                                const SizedBox(
                                   height: 14,
                                 ),
                                 emailField,
-                                SizedBox(
+                                const SizedBox(
                                   height: 14,
                                 ),
                                 passwordField,
-                                SizedBox(
+                                const SizedBox(
                                   height: 14,
                                 ),
                                 confirmPasswordField,
-                                SizedBox(
+                                const SizedBox(
                                   height: 14,
                                 ),
                                 signUpButton
@@ -280,6 +280,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.secondName = lastNameEditingController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
 
     Fluttertoast.showToast(msg: "Account created successfully");
     Navigator.pushAndRemoveUntil(

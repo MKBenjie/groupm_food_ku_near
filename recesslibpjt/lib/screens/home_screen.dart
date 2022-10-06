@@ -1,13 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:recesslibpjt/models/user_model.dart';
 import 'package:recesslibpjt/provider/sign_in_provider.dart';
 import 'package:recesslibpjt/screens/login_screen.dart';
 import 'package:recesslibpjt/screens/my_drawer_header.dart';
 import 'package:recesslibpjt/screens/wallet_screen.dart';
 import 'package:recesslibpjt/utils/next_screen.dart';
-import 'food.dart';
 import 'foodmenu.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,15 +20,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
   var currentPage = DrawerSections.home;
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Colors.orange[300],
       appBar: AppBar(
         backgroundColor: Colors.orange[800],
-        title: Text('Food Ku Near', style: TextStyle(color: Colors.white)),
+        title: Text('Food Ku Near',
+            style: TextStyle(color: Colors.white, fontFamily: 'Merienda')),
         elevation: 0,
       ),
       body: Padding(

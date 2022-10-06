@@ -24,8 +24,8 @@ class _LogInScreenState extends State<LogInScreen> {
   final RoundedLoadingButtonController googleController =
       RoundedLoadingButtonController();
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,8 @@ class _LogInScreenState extends State<LogInScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: const Icon(Icons.mail),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Email',
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
       ),
@@ -59,7 +59,7 @@ class _LogInScreenState extends State<LogInScreen> {
       controller: passwordController,
       obscureText: true,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{6,}$');
+        RegExp regex =  RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
           return ("A Password is required for login");
         }
@@ -72,8 +72,8 @@ class _LogInScreenState extends State<LogInScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: const Icon(Icons.vpn_key),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Password',
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
       ),
@@ -88,7 +88,7 @@ class _LogInScreenState extends State<LogInScreen> {
           logIn(emailController.text, passwordController.text);
         },
         minWidth: MediaQuery.of(context).size.width,
-        child: Text(
+        child: const Text(
           'LogIn',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -127,10 +127,13 @@ class _LogInScreenState extends State<LogInScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        "Welcome to .........",
+                      const Text(
+                        "Welcome to FOOD KU NEAR",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: 20, fontWeight: FontWeight.w500,
+                            fontFamily: 'Merienda',
+                            color: Colors.black54,
+                            ),
                       ),
                       
                     ],
@@ -148,15 +151,15 @@ class _LogInScreenState extends State<LogInScreen> {
                           child: Column(
                             children: [
                               emailField,
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               passwordField,
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               logInButton,
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Row(
@@ -167,7 +170,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                     onTap: () {
                                       nextScreen(context, RegistrationScreen());
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "SignUp",
                                       style: TextStyle(
                                         color: Colors.redAccent,
@@ -185,7 +188,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
 
