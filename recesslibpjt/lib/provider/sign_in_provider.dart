@@ -121,7 +121,7 @@ class SignInProvider extends ChangeNotifier {
       "provider": _provider,
     });
     notifyListeners();
-  } 
+  }
 
   Future saveDataToSharedPreferences() async {
     final SharedPreferences s = await SharedPreferences.getInstance();
@@ -133,14 +133,24 @@ class SignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future getDataFromSharedPreferences() async {
+    final SharedPreferences s = await SharedPreferences.getInstance();
+    _name = s.getString('name');
+    _email = s.getString('email');
+    _imageUrl = s.getString('image_url');
+    _uid = s.getString('uid');
+    _provider = s.getString('provider');
+    notifyListeners();
+  }
+
   Future<bool> checkUserExists() async {
     DocumentSnapshot snap =
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     if (snap.exists) {
-      print("EXIXTING USER");
+      // print("EXIXTING USER");
       return true;
     } else {
-      print("NEW USER");
+      // print("NEW USER");
       return false;
     }
   }

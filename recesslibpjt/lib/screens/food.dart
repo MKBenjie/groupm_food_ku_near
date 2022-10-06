@@ -10,8 +10,8 @@ class Food {
 }
 
 List<Food> foodlist = [
-  Food('assets/food1.jpg', 'Pizza', 'kalyakamu', 15000),
-  Food('assets/food2.jpg', 'Burger', 'kalyakamu', 5000),
+  Food('assets/food1.jpg', 'Pizza', 'Kalyakamu', 15000),
+  Food('assets/food2.jpg', 'Burger', 'Kalyakamu', 5000),
   Food('assets/food3.jpg', 'Chapati', 'Merz', 1000),
   Food('assets/food4.jpg', 'Rolex', 'Ability', 2000),
   Food('assets/food5.jpg', 'Rice', 'MunaYu', 5000),

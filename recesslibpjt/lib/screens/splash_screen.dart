@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:recesslibpjt/provider/sign_in_provider.dart';
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     //create timer
     Timer(const Duration(seconds: 2), () {
-      sp.isSignedIn == true
+      sp.isSignedIn == true || FirebaseAuth.instance.currentUser != null
           ?nextScreenReplace(context, const HomeScreen()):
           nextScreenReplace(context, const LogInScreen());
     });

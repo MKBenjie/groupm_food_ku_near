@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[300],
+      backgroundColor: Colors.red[500],
       appBar: AppBar(
         backgroundColor: Colors.orange[800],
         title: Text('Food Ku Near',
@@ -99,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (id == 3) {
               // currentPage = DrawerSections.wallet;
               sp.userSignOut();
+              logout;
               nextScreenReplace(context, LogInScreen());
             }
           });
@@ -129,6 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    // nextScreenReplace(context, LogInScreen());
   }
 }
 

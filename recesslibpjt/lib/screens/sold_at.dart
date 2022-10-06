@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
+import 'package:provider/provider.dart';
 import 'package:recesslibpjt/models/user_model.dart';
+import 'package:recesslibpjt/provider/sign_in_provider.dart';
 import 'food.dart';
 
 class Sold_detail extends StatefulWidget {
@@ -16,6 +18,11 @@ class Sold_detail extends StatefulWidget {
 }
 
 class _Sold_detailState extends State<Sold_detail> {
+  Future getData() async {
+    final s = context.read<SignInProvider>();
+    s.getDataFromSharedPreferences();
+  }
+
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
 
@@ -23,6 +30,8 @@ class _Sold_detailState extends State<Sold_detail> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getData();
+
     FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uid)
@@ -36,7 +45,7 @@ class _Sold_detailState extends State<Sold_detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[300],
+      backgroundColor: Colors.red[500],
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.orange[800],
@@ -131,13 +140,20 @@ class _Sold_detailState extends State<Sold_detail> {
             const TextStyle(color: Colors.redAccent, fontSize: 18),
         dialogContinueTextStyle:
             const TextStyle(color: Colors.blue, fontSize: 18));
-
-    String userName = loggedInUser.firstName.toString() + ' ' + loggedInUser.secondName.toString();
+    final s = context.read<SignInProvider>();
+    var userName1 = s.name.toString();
+    String userName =
+        '${loggedInUser.firstName.toString()} ${loggedInUser.secondName.toString()}';
     String userEmail = loggedInUser.email.toString();
+    String finalUserName;
+    if (loggedInUser.firstName == null) {
+      finalUserName = userName1;
+    } else {
+      finalUserName = userName;
+    }
+
     final Customer customer = Customer(
-        name: userName,
-        phoneNumber: "1234566677777",
-        email: userEmail);
+        name: finalUserName, phoneNumber: "1234566677777", email: userEmail);
 
     Random rand = Random();
     int number = rand.nextInt(2500);
