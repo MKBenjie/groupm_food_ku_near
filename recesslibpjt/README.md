@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project deals in bringing customers closer to the restaurants of their choices mainly university students since the collaborating restaurants are near the university premises .
 
 A few resources to get you started if this is your first Flutter project:
 
