@@ -4,6 +4,8 @@ import 'package:recesslibpjt/provider/internet_provider.dart';
 import 'package:recesslibpjt/provider/sign_in_provider.dart';
 import 'package:recesslibpjt/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
+//import 'package:firebase_core/firebase_core.dart';
+//import 'firebase_options.dart'; 
 
 void main() async {
   //intialize the application
@@ -19,8 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider( create: ((context)=>SignInProvider())),
-        ChangeNotifierProvider( create: ((context)=>InterntProvider())),
+        ChangeNotifierProvider(create: ((context) => SignInProvider())),
+        ChangeNotifierProvider(create: ((context) => InterntProvider())),
       ],
       child: MaterialApp(
         home: SplashScreen(),
