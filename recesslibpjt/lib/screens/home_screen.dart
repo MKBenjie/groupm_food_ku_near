@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               currentPage == DrawerSections.home ? true : false),
           menuItem(2, "Wallet", Icons.wallet,
               currentPage == DrawerSections.wallet ? true : false),
-          menuItem(3, "SignOut", Icons.logout,
+          menuItem(4, "SignOut", Icons.logout,
               currentPage == DrawerSections.SignOut ? true : false),
         ],
       ),
@@ -138,4 +138,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-enum DrawerSections { home, SignOut, wallet }
+enum DrawerSections { home, SignOut, wallet, }

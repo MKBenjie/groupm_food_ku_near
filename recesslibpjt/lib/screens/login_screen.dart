@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:recesslibpjt/feature/home_page/view/home_view.dart';
 import 'package:recesslibpjt/provider/internet_provider.dart';
 import 'package:recesslibpjt/provider/sign_in_provider.dart';
-import 'package:recesslibpjt/screens/home_screen.dart';
+import 'package:recesslibpjt/screens/home_scn.dart';
+// import 'package:recesslibpjt/screens/home_screen.dart';
 import 'package:recesslibpjt/screens/registration_screen.dart';
 import 'package:recesslibpjt/utils/config.dart';
 import 'package:recesslibpjt/utils/next_screen.dart';
@@ -276,7 +278,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   handleAfterSignIn() {
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      nextScreenReplace(context, const HomeScreen());
+      nextScreenReplace(context, const HomeScn());
     });
   }
 
@@ -286,7 +288,7 @@ class _LogInScreenState extends State<LogInScreen> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
-                nextScreenReplace(context, const HomeScreen())
+                nextScreenReplace(context, const HomeScn())
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

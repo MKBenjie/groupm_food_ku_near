@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
+// import 'package:recesslibpjt/feature/home_page/view/home_view.dart';
 import 'package:recesslibpjt/provider/sign_in_provider.dart';
+import 'package:recesslibpjt/screens/home_scn.dart';
 import 'package:recesslibpjt/screens/home_screen.dart';
 import 'package:recesslibpjt/screens/login_screen.dart';
 import 'package:recesslibpjt/utils/config.dart';
@@ -26,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //create timer
     Timer(const Duration(seconds: 2), () {
       sp.isSignedIn == true || FirebaseAuth.instance.currentUser != null
-          ?nextScreenReplace(context, const HomeScreen()):
+          ?nextScreenReplace(context, const HomeScn()):
           nextScreenReplace(context, const LogInScreen());
     });
   }

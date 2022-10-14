@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:recesslibpjt/models/user_model.dart';
-import 'package:recesslibpjt/screens/home_screen.dart';
+import 'package:recesslibpjt/screens/home_scn.dart';
+// import 'package:recesslibpjt/screens/home_screen.dart';
 import 'package:recesslibpjt/screens/login_screen.dart';
 import 'package:recesslibpjt/utils/config.dart';
 import 'package:recesslibpjt/utils/next_screen.dart';
@@ -289,7 +290,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Fluttertoast.showToast(msg: "Account created successfully");
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScn()),
         (route) => false);
   }
 }

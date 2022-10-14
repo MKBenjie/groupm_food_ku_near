@@ -16,6 +16,8 @@ class UserModel {
         secondName: map['second name']);
   }
 
+  get fullName => null;
+
   //sending data to server
 
   Map<String, dynamic> toMap() {
