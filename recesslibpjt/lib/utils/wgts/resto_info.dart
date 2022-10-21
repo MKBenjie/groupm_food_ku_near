@@ -21,7 +21,7 @@ class RestaurantInformation extends StatelessWidget {
           SizedBox(height: 10,),
           RestaurantTags(restaurant: restaurant),
           SizedBox(height: 5.0,),
-          Text("${restaurant.distance}km away - \$${restaurant.deliveryFee} delivery fee", style: TextStyle(
+          Text("${restaurant.distance}km away - UGX${restaurant.deliveryFee} delivery fee", style: TextStyle(
             fontSize: 15,
             // color: Colors.redAccent
           ),
