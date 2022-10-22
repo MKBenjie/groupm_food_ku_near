@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recesslibpjt/bloc/basket/basket_bloc.dart';
+import 'package:recesslibpjt/screens/QR_Generate.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recesslibpjt/utils/config.dart';
+import 'QR_Generate.dart';
 
 class BasketScreen extends StatelessWidget {
   static const String routeName = '/basket';
@@ -39,7 +41,17 @@ class BasketScreen extends StatelessWidget {
               // Navigator.pushNamed(context, '/basket');
             },
             child: Text('Go TO Checkout'),
-          )
+          ),
+          SizedBox(
+            width: 30,
+          ),
+          TextButton(
+              onPressed: () {
+                // Navigator.pushNamed(context, '/QR_Generate');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QR_Generate()));
+              },
+              child: Text('Generate QR Code'))
         ],
       )),
       body: Padding(
@@ -138,52 +150,54 @@ class BasketScreen extends StatelessWidget {
                   BlocBuilder<BasketBloc, BasketState>(
                       builder: (context, state) {
                     if (state is BasketLoaded) {
-                      return
-                      (state.basket.deliveryTime == null) ? 
-                      Column(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          const Text(
-                            'Delivery in 20minutes',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/delivery-time');
-                              },
-                              child: const Text(
-                                'Change',
-                                style: TextStyle(
-                                    fontSize: 14.0, color: Colors.redAccent),
-                              ))
-                        ],
-                      ) : 
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 20.0),                          Text(
-                            'Delivery at ${state.basket.deliveryTime!.value}',
-                            style: TextStyle(
-                                  fontSize: 15.0,
+                      return (state.basket.deliveryTime == null)
+                          ? Column(
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(
+                                  height: 20.0,
                                 ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/delivery-time');
-                              },
-                              child: const Text(
-                                'Change',
-                                style: TextStyle(
-                                    fontSize: 14.0, color: Colors.redAccent),
-                              )),
-                        ],
-                      )
-                      ;
+                                const Text(
+                                  'Delivery in 20minutes',
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, '/delivery-time');
+                                    },
+                                    child: const Text(
+                                      'Change',
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.redAccent),
+                                    ))
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                const SizedBox(height: 20.0),
+                                Text(
+                                  'Delivery at ${state.basket.deliveryTime!.value}',
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, '/delivery-time');
+                                    },
+                                    child: const Text(
+                                      'Change',
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.redAccent),
+                                    )),
+                              ],
+                            );
                     } else {
                       return Text('Something went wrong');
                     }
@@ -268,7 +282,7 @@ class BasketScreen extends StatelessWidget {
                   return Text("Something went wrong");
                 }
               }),
-            )
+            ),
           ])),
     );
   }

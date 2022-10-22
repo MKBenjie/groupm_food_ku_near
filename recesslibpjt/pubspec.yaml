@@ -60,6 +60,8 @@ dependencies:
   kartal: ^2.5.1
   carousel_slider: ^4.1.1
   page_transition: ^2.0.9
+  path_provider: ^2.0.11
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
