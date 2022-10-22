@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recesslibpjt/bloc/basket/basket_bloc.dart';
+import 'package:recesslibpjt/models/basket_model.dart';
+import 'dart:math';
 import 'package:recesslibpjt/screens/QR_Generate.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recesslibpjt/utils/config.dart';
-import 'QR_Generate.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterwave_standard/flutterwave.dart';
+import 'package:recesslibpjt/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:recesslibpjt/provider/sign_in_provider.dart';
+// import 'QR_Generate.dart';
 
-class BasketScreen extends StatelessWidget {
+class BasketScreen extends StatefulWidget {
   static const String routeName = '/basket';
 
   static Route route() {
@@ -16,6 +23,36 @@ class BasketScreen extends StatelessWidget {
   }
 
   const BasketScreen({super.key});
+
+  @override
+  State<BasketScreen> createState() => _BasketScreenState();
+}
+
+class _BasketScreenState extends State<BasketScreen> {
+  Future getData() async {
+    final s = context.read<SignInProvider>();
+    s.getDataFromSharedPreferences();
+  }
+
+  User? user = FirebaseAuth.instance.currentUser;
+
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +75,9 @@ class BasketScreen extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              // Navigator.pushNamed(context, '/basket');
+              _handlePaymentInitialization();
             },
-            child: Text('Go TO Checkout'),
+            child: Text('Go To Checkout'),
           ),
           SizedBox(
             width: 30,
@@ -48,6 +85,7 @@ class BasketScreen extends StatelessWidget {
           TextButton(
               onPressed: () {
                 // Navigator.pushNamed(context, '/QR_Generate');
+                
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => QR_Generate()));
               },
@@ -285,5 +323,93 @@ class BasketScreen extends StatelessWidget {
             ),
           ])),
     );
+  }
+
+  _handlePaymentInitialization() async {
+    final style = FlutterwaveStyle(
+        appBarText: "Food Ku Near",
+        buttonColor: Colors.redAccent,
+        // appBarIcon: Icon(Icons.message, color: Color(0xffd0ebff)),
+        appBarIcon: const Icon(Icons.arrow_back, color: Colors.white),
+        buttonTextStyle: const TextStyle(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+        appBarColor: Colors.orange[600],
+        dialogCancelTextStyle:
+            const TextStyle(color: Colors.redAccent, fontSize: 18),
+        dialogContinueTextStyle:
+            const TextStyle(color: Colors.blue, fontSize: 18));
+    final s = context.read<SignInProvider>();
+    var userName1 = s.name.toString();
+    String userName =
+        '${loggedInUser.firstName.toString()} ${loggedInUser.secondName.toString()}';
+    String userEmail = loggedInUser.email.toString();
+    String finalUserName;
+    if (loggedInUser.firstName == null) {
+      finalUserName = userName1;
+    } else {
+      finalUserName = userName;
+    }
+
+    final Customer customer = Customer(
+        name: finalUserName, phoneNumber: "1234566677777", email: userEmail);
+
+    Random rand = Random();
+    int number = rand.nextInt(2500);
+    var ref = "f_ku_near_1200$number";
+    // var foodPrice = state.basket.totalString;
+    var foodPrice = Basket().totalString ;
+    final Flutterwave flutterwave = Flutterwave(
+        context: context,
+        style: style,
+        publicKey: "FLWPUBK_TEST-c2bddc6b89ccece1fe24d075b5f05a30-X",
+        currency: "UGX",
+        redirectUrl: "my_redirect_url",
+        txRef: ref,
+        amount: foodPrice,
+        customer: customer,
+        paymentOptions: "ussd, card, mobile money",
+        customization: Customization(title: "Test Payment"),
+        isTestMode: true);
+
+    // String ref;
+
+    final ChargeResponse response = await flutterwave.charge();
+    if (response != null) {
+      // ignore: unnecessary_this
+      await this.showLoading(response.status!);
+      // print("${response.toJson()}");
+      // if(response.success) {
+      //  Call the verify transaction endpoint with the transactionID returned in `response.transactionId` to verify transaction before offering value to customer
+    }
+    // else {
+    // Transaction not successful
+    // }
+    // }
+    else {
+//   // User cancelled
+      showLoading("No Response!");
+    }
+  }
+
+  Future<void> showLoading(String message) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+              width: double.infinity,
+              height: 50,
+              child: Text(
+                message,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
